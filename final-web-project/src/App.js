@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Pages/Login';
 import User from './Pages/User'
+import Admin from './Pages/Admin';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,17 +12,25 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login"
-          element = {
+        <Route exact path="/login"
+          element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <Login />
             </div>
           }
         />
-        <Route path="/main"
-          element = {
+        <Route exact path="/user"
+          element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <User />
+            </div>
+          }
+        />
+
+        <Route exact path="/admin"
+          element={
+            <div className="flex justify-center items-center bg-gray-300 h-screen">
+              <Admin />
             </div>
           }
         />

@@ -2,15 +2,14 @@ import { FaUserAlt } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { MdAlternateEmail } from "react-icons/md";
 import React, { useRef } from "react";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { signIn, Auth } from "../Services/Services";
 
 const Login = () => {
     const username = useRef(null);
     const password = useRef(null);
-    const BASE_URL = 'https://posts-pw2021.herokuapp.com/api/v1';
     const navigate = useNavigate();
 
     function showPassword() {
@@ -31,14 +30,20 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post(`${BASE_URL}/auth/signin`, { username: inputUsername, password: inputPassword });
-            localStorage.setItem('token', response.data.token);
-            navigate('/main');
-
+            const response = await signIn(inputUsername,inputPassword);
+            
+            if(response.status === 200) {
+                localStorage.setItem('token', response.data.token);
+                const dataAuth = await Auth(response.data.token);
+                //console.log(dataAuth.role);
+                if(dataAuth.role === "admin") navigate('/Admin');
+                else if (dataAuth.role === "user") navigate('/User');
+            }
         } catch (error) {
             const { response } = error
 
             if(response.status === 404) toast('Usuario no encontrado', { type: 'error' });
+            else if(response.status === 403) toast('Servicio denegado', { type: 'error' });
         }
     };
 
