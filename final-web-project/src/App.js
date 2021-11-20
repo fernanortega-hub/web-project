@@ -7,21 +7,23 @@ import {
   Route
 } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/login"
-          element={
+          element = {
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <Login />
-            </div>}
+            </div>
+          }
         />
-        <Route path="/principal"
-          element={
+        <Route path="/main"
+          element = {
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <User />
-            </div>}
+            </div>
+          }
         />
       </Routes>
     </Router>
