@@ -38,7 +38,7 @@ const App = () => {
 
         <Route exact path="/mainpage"
           element={
-            <div className="flex justify-center items-center bg-gray-300 h-screen">
+            <div>
               <MainPage />
             </div>
           }

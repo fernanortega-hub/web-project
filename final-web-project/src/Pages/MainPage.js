@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../Components/MainPage/NavBar/NavBar';
+import PostForm from '../Components/MainPage/PostForm/PostForm';
+import DisplayPosts from '../Components/MainPage/DisplayPosts/DisplayPosts';
+import Footer from '../Components/MainPage/Footer/Footer';
+
 import { Auth } from "../Services/Services";
 
 
@@ -16,17 +21,24 @@ const MainPage = () => {
                 setRole(response.role);
             }catch(error){
                 console.log("Algo salio mal");
-                //Invocar funcion que limpie localStorage
+                //Invocar funcion que limpie localStorage, supongo que de sevicios??
                 navigate('/Login');
-            }finally{
-                console.log("ROL: "+role);
+            }finally{   //delete
+                console.log("ROL: " + role); //camiar pot toast
             }
         }
         verifyRole(localStorage.getItem('token'));
     },[role]);
 
-    return (
-        <h1> {role} </h1>
+    //createPost(title, description, url); -> setPost();
+    //logout(); -> emptyLocalStorage && set role to undefined;
+    return (    //prototype -> if approved then pass to components
+        <div>
+            <NavBar/>
+            {role == "admin" && <PostForm/>}
+            <DisplayPosts/>
+            <Footer/>
+        </div>
     );
 };
 
