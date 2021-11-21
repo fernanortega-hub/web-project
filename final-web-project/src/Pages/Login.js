@@ -36,8 +36,8 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token);
                 const dataAuth = await Auth(response.data.token);
                 //console.log(dataAuth.role);
-                if(dataAuth.role === "admin") navigate('/Admin');
-                else if (dataAuth.role === "user") navigate('/User');
+                if(dataAuth.role === "admin") navigate('/MainPage');
+                else if (dataAuth.role === "user") navigate('/MainPage');
             }
         } catch (error) {
             const { response } = error

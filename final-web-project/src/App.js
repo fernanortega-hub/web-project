@@ -2,6 +2,7 @@ import React from 'react';
 import Login from './Pages/Login';
 import User from './Pages/User'
 import Admin from './Pages/Admin';
+import MainPage from './Pages/MainPage';
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,6 +32,14 @@ const App = () => {
           element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <Admin />
+            </div>
+          }
+        />
+
+        <Route exact path="/mainpage"
+          element={
+            <div className="flex justify-center items-center bg-gray-300 h-screen">
+              <MainPage />
             </div>
           }
         />
