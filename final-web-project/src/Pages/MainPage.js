@@ -35,7 +35,7 @@ const MainPage = () => {
     return (    //prototype -> if approved then pass to components
         <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden">
             <NavBar/>
-            {role == "admin" && <PostForm/>}
+            {role === "admin" && <PostForm/>}
             <DisplayPosts/>
             <Footer/>
         </div>
