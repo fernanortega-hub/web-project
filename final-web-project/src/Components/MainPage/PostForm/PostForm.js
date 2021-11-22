@@ -1,7 +1,7 @@
 const PostForm = () =>{
     
     return(
-        <div className="border w-3/4">
+        <div className="w-3/4 min-h-screen bg-gray-100 border rounded-t-lg shadow-lg">
             <main>
                 <form onSubmit={()=>console.log("A")} 
                 className="flex-col p-10">

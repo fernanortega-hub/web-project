@@ -1,10 +1,12 @@
 const PostCard = () =>{
     
     return(
-        <div className="border">
-            <h1>Aqui va un post</h1>
-            <h1>Aqui va un post</h1>
-            <h1>Aqui va un post</h1>
+        <div className=" m-4 mx-10 rounded bg-gray-300 p-4 shadow-inner">
+            <p>"Titulo: titulo de post"</p>
+            <p>"Descripcion: descripcion de post"</p>
+            <div className="border border-black rounded h-44 text-center">
+                imagen
+            </div>
         </div>
     );
 }
