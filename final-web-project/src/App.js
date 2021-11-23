@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Pages/Login';
 import MainPage from './Pages/MainPage';
+import NotFound from './Pages/NotFound';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,7 +12,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/login"
+        <Route exact path="/"
           element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <Login />
@@ -25,6 +26,9 @@ const App = () => {
             </div>
           }
         />
+        <Route path="*" element={
+          <NotFound />
+        }/>
       </Routes>
     </Router>
   );

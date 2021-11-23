@@ -24,10 +24,8 @@ const Login = () => {
         const inputUsername = username.current.value;
         const inputPassword = password.current.value;
 
-        if (!inputUsername || !inputPassword) {
-            toast('Llena las casillas con tus datos', { type: 'warning' });
-            return;
-        }
+        if (!inputUsername || !inputPassword)
+            return toast('Llena las casillas con tus datos', { type: 'warning' });
 
         try {
             const response = await signIn(inputUsername,inputPassword);
