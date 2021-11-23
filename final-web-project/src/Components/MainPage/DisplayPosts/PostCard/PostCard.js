@@ -4,6 +4,8 @@ import { FaUserCircle, FaStar, FaComment } from "react-icons/fa";
 import {AiFillHeart} from 'react-icons/ai';
 import axios from "axios";
 import Comments from "../Comment/Comment";
+import AddComment from "../AddComment/AddComment";
+import shortid from 'shortid';
 /* 
 const [favorite, setFavorite] = useState(false);
 
@@ -31,12 +33,20 @@ const PostCard = ({username, struct }) => {
         _id, title, description, image, user, likes, createdAt, comments
     } = struct;
 
+    const [showComm, setShow] = useState(false);
+
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
     const [likesNumber, setLikes] = useState(likes.length);
 
-    const [commentsNumber, setComments] = useState(comments.length)
+    const [commentSt, setComments] = useState(comments)
 
     const [favoriteBut, setFavorite] = useState(false);
+
+    function addCommentChange(comment){
+        const value = ([...commentSt, {...comments, user: {username}}]);
+        setComments(value);
+
+    }
     
     async function likesPost() {
         
@@ -101,17 +111,20 @@ const PostCard = ({username, struct }) => {
                         {likes.length}
                     </div>
                     <div className="flex justify-center">
-                        <button><FaComment className="mr-2" size={25} /></button>
-                        {comments.length}
+                        <button onClick={()=>setShow(!showComm) } className={`${showComm && `text-blue-400`}`}><FaComment className={`mr-2 `}  size={25} /></button>
+                        {commentSt.length}
                     </div>  
                     <button onClick={favoritesPost} className={`flex  items-center h-full ${favoriteBut && `text-blue-400`}`}>
                         <FaStar size={25} />
                     </button>
                 </div>
-                <div>
+                <div className={`${!showComm && `hidden`}`} >
                     {
-                        comments && comments.map((it) => <Comments infoComment={it}/>)            
+                        comments && comments.map((it) => <Comments 
+                                                        key={shortid.generate()}
+                                                        infoComment={it}/>)            
                     }
+                    <AddComment id={_id} afterSubmit={addCommentChange} />
             </div>
         </div>
     )
