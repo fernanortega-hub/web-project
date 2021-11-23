@@ -18,3 +18,7 @@ export const Auth = async (token) => {
     const authResponse = await axios.get(`${BASE_URL}/auth/whoami`,config);
     return authResponse.data;
 };
+
+export const logout =  () => {
+    localStorage.removeItem('token', 'role');
+}

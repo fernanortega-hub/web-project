@@ -49,12 +49,12 @@ const DisplayPosts = () => {
     }, [page]);
 
     if (Post.status === 'Loading') return <Loading />;
-    
-
-
 
     return (
-        <div className="w-4/5 min-h-screen bg-gray-100 border rounded-xl space-y-10 flex flex-col py-8 items-center tablet:w-1/2">
+        <div className="w-4/5 min-h-screen bg-gray-100 border rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2">
+            <div className="w-4/5 flex justify-end">
+                <span className="bg-gray-400 px-4 py-2 rounded-lg text-white font-medium" > Página: {page + 1} </span>
+            </div>
             {
                 Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} />)
             }
@@ -67,7 +67,7 @@ const DisplayPosts = () => {
                     }}>
                     <FaArrowLeft className="mr-1" />
                 </button>
-                <span className = "bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page+1} </span>
+                <span className="bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page + 1} </span>
                 <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
                     onClick={() => {
                         setpage(page + 1);
@@ -75,7 +75,7 @@ const DisplayPosts = () => {
                             toast('No hay mas paginas', { type: 'Warning' });
                             setpage(page - 1);
                         }
-                        
+
                     }}>
                     <FaArrowRight className="ml-1" />
                 </button>

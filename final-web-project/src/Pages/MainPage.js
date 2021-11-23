@@ -22,9 +22,8 @@ const MainPage = () => {
                 localStorage.setItem('role', role);
             }catch(error){
                 toast('Algo salio mal', { type: 'error' });
-                //Invocar funcion que limpie localStorage, supongo que de sevicios??
-                navigate('/Login');
-                
+                localStorage.removeItem('token', 'role');
+                navigate('/');
             }
         }
         verifyRole(localStorage.getItem('token'));
