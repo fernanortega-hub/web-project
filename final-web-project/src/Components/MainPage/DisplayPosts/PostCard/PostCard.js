@@ -4,6 +4,27 @@ import { FaUserCircle, FaStar, FaComment } from "react-icons/fa";
 import {AiFillHeart} from 'react-icons/ai';
 import axios from "axios";
 
+/* 
+const [favorite, setFavorite] = useState(false);
+
+    // onClickFavorite = () => {
+    //     setFavorite(!favorite);
+    //     let config = {
+    //         headers: {
+    //             "Authorization": `Bearer ${token}`
+    //         }
+    //     };
+
+    //     try {
+    //         let responseFavorite = axios.patch();
+    //     } catch (error) {
+            
+    //     }
+    // };
+// };
+
+*/
+
 
 import Comments from "../Comment/Comment";
 
@@ -57,47 +78,46 @@ const PostCard = ({username, struct }) => {
         }
         
     }
-
+    
     return (
         <div className="w-4/5 flex flex-col justify-center rounded-lg bg-gray-300 p-4 space-y-10">
             <div className="flex flex-nowrap items-center space-x-3" >
+                <div>
+                    <FaUserCircle size="20" />
+                    </div>
+                        <h3> @{user?.username} </h3>
+                    <button onClick={favoritesPost} className={`w-full flex justify-end items-center h-full ${favoriteBut && `text-blue-400`}`}>
+                        <FaStar size="25" />
+                    </button>
+                </div>
+            
 
                 <div>
-                    <FaUserCircle size="20"/>
-
+                    {
+                        <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
+                    }
                 </div>
-                    <h3> @{user?.username} </h3>
-                <button onClick={favoritesPost} className={`w-full flex justify-end items-center h-full ${favoriteBut && `text-blue-400`}`}>
-                    <FaStar size="25" />
-                </button>
-            </div>
-
-            <div>
-                {
-                    <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
-                }
-            </div>
-            <div>
-                <p className="font-semibold"> {title} </p>
-                <p className="text-xs"> {new Date(createdAt).toLocaleDateString()} </p>
-            </div>
-            <p> {description} </p>
-
-            <div className="flex justify-center space-x-8">
-                <div className="flex justify-center">
-                    <button onClick={likesPost} className={`${liked && `text-blue-400`}`} type="button"><AiFillHeart className="mr-2" size={25} /></button>
-                    {likes.length}
+                <div>
+                    <p className="font-semibold"> {title} </p>
+                    <p className="text-xs"> {new Date(createdAt).toLocaleDateString()} </p>
                 </div>
-                <div className="flex justify-center">
-                    <button><FaComment className="mr-2" size={25} /></button>
-                    {comments.length}
-                </div>  
-            </div>
-            <div>
-                {
-                    comments && comments.map((it) => <Comments infoComment={it} />)            
-                }
-            </div>
+                <p> {description} </p>
+
+                <div className="flex justify-center space-x-8">
+                    <div className="flex justify-center">
+                        <button onClick={likesPost} className={`${liked && `text-blue-400`}`} type="button"><AiFillHeart className="mr-2" size={25} /></button>
+                        {likes.length}
+                    </div>
+                    <div className="flex justify-center">
+                        <button><FaComment className="mr-2" size={25} /></button>
+                        {comments.length}
+                    </div>  
+                </div>
+                <div>
+                    {
+                        comments && comments.map((it) => <Comments infoComment={it} />)            
+                    }
+                </div>
         </div>
     );
 }
