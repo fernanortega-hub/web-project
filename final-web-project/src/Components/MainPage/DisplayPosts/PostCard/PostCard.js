@@ -3,7 +3,7 @@ import react, { useState } from "react";
 import { FaUserCircle, FaStar, FaComment } from "react-icons/fa";
 import {AiFillHeart} from 'react-icons/ai';
 import axios from "axios";
-
+import Comments from "../Comment/Comment";
 /* 
 const [favorite, setFavorite] = useState(false);
 
@@ -25,9 +25,6 @@ const [favorite, setFavorite] = useState(false);
 
 */
 
-
-import Comments from "../Comment/Comment";
-
 const PostCard = ({username, struct }) => {
 
     const {
@@ -42,11 +39,12 @@ const PostCard = ({username, struct }) => {
     const [favoriteBut, setFavorite] = useState(false);
     
     async function likesPost() {
+        
 
         try {
             const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, {
                 headers: {
-                    Authorization: `Bearer: ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
             //cuando das like
@@ -58,11 +56,9 @@ const PostCard = ({username, struct }) => {
                 setLikes(likesNumber - 1);
                 setLiked(false);      
             }
-
         } catch (error) {
             console.log(error);
-        }
-        
+        }  
     }
 
     function favoritesPost() {
@@ -75,8 +71,7 @@ const PostCard = ({username, struct }) => {
             }
         } catch (error) {
             console.log(error);           
-        }
-        
+        }    
     }
     
     return (
@@ -85,13 +80,10 @@ const PostCard = ({username, struct }) => {
                 <div>
                     <FaUserCircle size="20" />
                     </div>
-                        <h3> @{user?.username} </h3>
-                    <button onClick={favoritesPost} className={`w-full flex justify-end items-center h-full ${favoriteBut && `text-blue-400`}`}>
-                        <FaStar size="25" />
-                    </button>
+                        <h3 > @{user?.username} </h3>
+                        <p className="w-full text-xs flex justify-end"> {new Date(createdAt).toLocaleDateString()} </p>
+                    
                 </div>
-            
-
                 <div>
                     {
                         <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
@@ -99,7 +91,7 @@ const PostCard = ({username, struct }) => {
                 </div>
                 <div>
                     <p className="font-semibold"> {title} </p>
-                    <p className="text-xs"> {new Date(createdAt).toLocaleDateString()} </p>
+                    
                 </div>
                 <p> {description} </p>
 
@@ -112,13 +104,17 @@ const PostCard = ({username, struct }) => {
                         <button><FaComment className="mr-2" size={25} /></button>
                         {comments.length}
                     </div>  
+                    <button onClick={favoritesPost} className={`flex  items-center h-full ${favoriteBut && `text-blue-400`}`}>
+                        <FaStar size={25} />
+                    </button>
                 </div>
                 <div>
                     {
-                        comments && comments.map((it) => <Comments infoComment={it} />)            
+                        comments && comments.map((it) => <Comments infoComment={it}/>)            
                     }
-                </div>
+            </div>
         </div>
-    );
+    )
 }
+
 export default PostCard;
