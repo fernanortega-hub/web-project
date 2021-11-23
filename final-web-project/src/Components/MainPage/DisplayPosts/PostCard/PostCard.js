@@ -1,9 +1,9 @@
-import react from "react";
+import react, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import {BiLike, BiMessageRounded} from "react-icons/bi";
+import { BiLike, BiMessageRounded } from "react-icons/bi";
 
 
-const PostCard = ({struct}) => {
+const PostCard = ({ struct }) => {
 
     const {
         title, description, image, user, likes, createdAt, comments
@@ -12,24 +12,28 @@ const PostCard = ({struct}) => {
 
 
     return (
-        <div className="flex flex-col m-8  rounded bg-gray-300 p-4 shadow-inner space-y-12 lg:w-10/12 lg:ml-28 lg: ">
-            <div className="flex flex-nowrap items-center space-x-3" > {/*Mostrar nombre de usuario*/}
-                <FaUserCircle size="25"/>
+        <div className="w-4/5 flex flex-col justify-center rounded-lg bg-gray-300 p-4 space-y-10">
+            <div className="flex flex-nowrap items-center space-x-3" >
+                <FaUserCircle size="25" />
                 <h3> @{user?.username} </h3>
             </div>
-            
-            {          
-                <img className="w-full h-40 object-cover my-2 rounded-2xl" src={image} alt="Imagen para el usuario" />
-            }        
-            <p className="font-semibold"> {title} </p>
-            <p>{description}</p>
+
+            {
+                <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
+            }
+            <div>
+                <p className="font-semibold"> {title} </p>
+                <p className="text-xs"> {new Date(createdAt).toLocaleDateString()} </p>
+            </div>
+            <p> {description} </p>
+
             <div className="flex justify-center space-x-8">
                 <div className="flex justify-center">
-                    <button><span><BiLike className="mr-2" size={25}/></span></button>
+                    <button><BiLike className="mr-2" size={25} /></button>
                     {likes.length}
                 </div>
                 <div className="flex justify-center">
-                    <button><span><BiMessageRounded className="mr-2 " size={25}/></span> </button>
+                    <button><BiMessageRounded className="mr-2" size={25} /></button>
                     {comments.length}
                 </div>
             </div>

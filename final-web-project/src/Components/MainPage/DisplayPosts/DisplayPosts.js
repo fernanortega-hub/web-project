@@ -1,8 +1,10 @@
 import PostCard from '../DisplayPosts/PostCard/PostCard';
 import Loading from '../Loading/Loading';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
 
 const DisplayPosts = () => {
 
@@ -12,6 +14,7 @@ const DisplayPosts = () => {
     });
 
     const [page, setpage] = useState(0);
+    let [allPages, setPages] = useState(0);
 
     useEffect(() => {
         const config = {
@@ -35,41 +38,47 @@ const DisplayPosts = () => {
             },
         };
         const getPost = async () => {
+
             const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=${page}`, config);
-
             setPost({ status: 'Ok', data: response.data });
+            setPages(allPages = response.pages);
+            console.log('Pagina:' + response.page);
+            console.log('Paginas:' + allPages)
         };
-
         getPost();
     }, [page]);
 
     if (Post.status === 'Loading') return <Loading />;
+    
 
 
 
     return (
-        <div className="w-4/5 min-h-screen bg-gray-100 border rounded-lg shadow-lg my-4 tablet:w-2/3">
+        <div className="w-4/5 min-h-screen bg-gray-100 border rounded-xl space-y-10 flex flex-col py-8 items-center tablet:w-1/2">
             {
                 Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} />)
             }
 
-            <div className="flex items-center h-14 justify-center mb-2">
-                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white font-semibold flex items-center hover:bg-gray-600"
-                    onClick={()=>{
-                        setpage(page-1);
-                        if(page===0) setpage(page);
+            <div className="flex items-center h-14 justify-center">
+                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
+                    onClick={() => {
+                        setpage(page - 1);
+                        if (page === 0) setpage(page);
                     }}
                 >
-                    <FaArrowLeft className="mr-1"/>
-                    Posts anteriores
+                    <FaArrowLeft className="mr-1" />
                 </button>
-                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white font-semibold flex items-center hover:bg-gray-600"
-                    onClick={()=>{
-                        setpage(page+1);
-                        // Agregar validacion de una maxima cantidad de paginas
+                <span className = "bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page+1} </span>
+                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
+                    onClick={() => {
+                        setpage(page + 1);
+                        if (page >= allPages) {
+                            toast('No hay mas paginas', { type: 'Warning' });
+                            setpage(page - 1);
+                        }
+                        
                     }}
                 >
-                    Posts siguientes 
                     <FaArrowRight className="ml-1" />
                 </button>
             </div>

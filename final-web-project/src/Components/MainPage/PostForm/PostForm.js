@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
 
@@ -8,28 +8,30 @@ const PostForm = () => {
 
     const activeForm = () => {
         setactive(!active);
+    };
 
-        
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        console.log("A")
     };
 
     return (
-        <div className="w-4/5 h-auto max-h-64 bg-gray-100 border rounded-lg shadow-lg tablet:w-2/3">
+        <div className="w-4/5 h-auto max-h-64 bg-gray-100 border flex flex-col items-center rounded-lg shadow-lg tablet:w-1/2">
             <button className="flex justify-center items-center p-4 w-full h-6 transition duration-1000 ease-in-out"
                 onClick={activeForm}>
                 {active ? <FaArrowUp/> : <FaArrowDown/>}
             </button>
 
-            <main className={`${active ? '' : 'hidden'} transition duration-1000 ease-in-out `}>
-                <form onSubmit={() => console.log("A")}
+            <main className={`${active ? '' : 'hidden'} w-96`}>
+                <form onSubmit={onSubmitHandler}
                     className="flex flex-col p-4 justify-center items-center">
-                    <h3>Titulo:</h3>
-                    <input name="title" className="w-5/6 border border-gray-500 rounded mb-1" />
+                    <input placeholder="Titulo de publicación" name="title" className="w-5/6 border border-gray-500 rounded mb-1" />
 
-                    <h3>Descripcion:</h3>
-                    <input name="description" className="w-5/6 border border-gray-500 rounded mb-1" />
+                    <input placeholder="Descripción" name="description" className="w-5/6 border border-gray-500 rounded mb-1 h-2/4" />
 
-                    <h3>Imagen(url):</h3>
-                    <input name="picture" className="w-5/6 border border-gray-500 rounded" />
+                    <input placeholder="Imagen (URL)" name="picture" className="w-5/6 border border-gray-500 rounded mb-1" />
+
+                    <button className="bg-indigo-600 rounded-xl text-white font-medium py-2 px-4 hover:bg-indigo-800"> Subir </button>
                 </form>
             </main>
         </div>
