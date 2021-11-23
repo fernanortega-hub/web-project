@@ -1,14 +1,62 @@
-import react, { useState } from "react";
-import { FaUserCircle, FaStar } from "react-icons/fa";
-import { BiLike, BiMessageRounded } from "react-icons/bi";
 
-const PostCard = ({ struct }) => {
+import react, { useState } from "react";
+import { FaUserCircle, FaStar, FaComment } from "react-icons/fa";
+import {AiFillHeart} from 'react-icons/ai';
+import axios from "axios";
+
+
+import Comments from "../Comment/Comment";
+
+const PostCard = ({username, struct }) => {
 
     const {
-        title, description, image, user, likes, createdAt, comments
+        _id, title, description, image, user, likes, createdAt, comments
     } = struct;
 
+    const [liked, setLiked] = useState(likes.some((it) => it.username === username));
+    const [likesNumber, setLikes] = useState(likes.length);
 
+    const [commentsNumber, setComments] = useState(comments.length)
+
+    const [favoriteBut, setFavorite] = useState(false);
+    
+    async function likesPost() {
+
+        try {
+            const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, {
+                headers: {
+                    Authorization: `Bearer: ${localStorage.getItem('token')}`,
+                },
+            });
+            //cuando das like
+            if (!liked) {
+                setLikes(likesNumber + 1);
+                setLiked(true);
+            } else {
+                //Cuando le quitas like
+                setLikes(likesNumber - 1);
+                setLiked(false);      
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    function favoritesPost() {
+        try {
+
+            if(!favoriteBut){
+                setFavorite(true);
+            }else{
+                setFavorite(false)
+            }
+        } catch (error) {
+            console.log(error);           
+        }
+        
+    }
 
     return (
         <div className="w-4/5 flex flex-col justify-center rounded-lg bg-gray-300 p-4 space-y-10">
@@ -19,14 +67,16 @@ const PostCard = ({ struct }) => {
 
                 </div>
                     <h3> @{user?.username} </h3>
-                <div className="w-full flex justify-end items-center h-full">
+                <button onClick={favoritesPost} className={`w-full flex justify-end items-center h-full ${favoriteBut && `text-blue-400`}`}>
                     <FaStar size="25" />
-                </div>
+                </button>
             </div>
 
-            {
-                <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
-            }
+            <div>
+                {
+                    <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
+                }
+            </div>
             <div>
                 <p className="font-semibold"> {title} </p>
                 <p className="text-xs"> {new Date(createdAt).toLocaleDateString()} </p>
@@ -35,13 +85,18 @@ const PostCard = ({ struct }) => {
 
             <div className="flex justify-center space-x-8">
                 <div className="flex justify-center">
-                    <button><BiLike className="mr-2" size={25} /></button>
+                    <button onClick={likesPost} className={`${liked && `text-blue-400`}`} type="button"><AiFillHeart className="mr-2" size={25} /></button>
                     {likes.length}
                 </div>
                 <div className="flex justify-center">
-                    <button><BiMessageRounded className="mr-2" size={25} /></button>
+                    <button><FaComment className="mr-2" size={25} /></button>
                     {comments.length}
-                </div>
+                </div>  
+            </div>
+            <div>
+                {
+                    comments && comments.map((it) => <Comments infoComment={it} />)            
+                }
             </div>
         </div>
     );
