@@ -23,7 +23,7 @@ const DisplayPosts = () => {
             },
         };
         const getPost = async () => {
-            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=0', config);
+            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0', config);
 
             setPost({ status: 'Ok', data: response.data });
         };
@@ -39,7 +39,7 @@ const DisplayPosts = () => {
         };
         const getPost = async () => {
 
-            const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=${page}`, config);
+            const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=${page}`, config);
             setPost({ status: 'Ok', data: response.data });
             setPages(allPages = response.pages);
             console.log('Pagina:' + response.page);
@@ -64,8 +64,7 @@ const DisplayPosts = () => {
                     onClick={() => {
                         setpage(page - 1);
                         if (page === 0) setpage(page);
-                    }}
-                >
+                    }}>
                     <FaArrowLeft className="mr-1" />
                 </button>
                 <span className = "bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page+1} </span>
@@ -77,8 +76,7 @@ const DisplayPosts = () => {
                             setpage(page - 1);
                         }
                         
-                    }}
-                >
+                    }}>
                     <FaArrowRight className="ml-1" />
                 </button>
             </div>

@@ -19,6 +19,9 @@ module.exports = {
         'laptop': '1024px',
         'desktop': '1280px',
       },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+      },
     },
   },
   variants: {

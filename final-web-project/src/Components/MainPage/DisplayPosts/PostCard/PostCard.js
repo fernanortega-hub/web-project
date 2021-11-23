@@ -1,7 +1,6 @@
 import react, { useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaStar } from "react-icons/fa";
 import { BiLike, BiMessageRounded } from "react-icons/bi";
-
 
 const PostCard = ({ struct }) => {
 
@@ -14,8 +13,15 @@ const PostCard = ({ struct }) => {
     return (
         <div className="w-4/5 flex flex-col justify-center rounded-lg bg-gray-300 p-4 space-y-10">
             <div className="flex flex-nowrap items-center space-x-3" >
-                <FaUserCircle size="25" />
-                <h3> @{user?.username} </h3>
+
+                <div>
+                    <FaUserCircle size="20"/>
+
+                </div>
+                    <h3> @{user?.username} </h3>
+                <div className="w-full flex justify-end items-center h-full">
+                    <FaStar size="25" />
+                </div>
             </div>
 
             {

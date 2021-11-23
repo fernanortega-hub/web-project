@@ -19,6 +19,7 @@ const MainPage = () => {
             try{
                 let response = await Auth(token);
                 setRole(response.role);
+                localStorage.setItem('role', role);
             }catch(error){
                 toast('Algo salio mal', { type: 'error' });
                 //Invocar funcion que limpie localStorage, supongo que de sevicios??
