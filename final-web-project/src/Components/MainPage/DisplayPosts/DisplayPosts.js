@@ -80,7 +80,6 @@ const DisplayPosts = () => {
                     <FaArrowRight className="ml-1" />
                 </button>
             </div>
-
         </div>
     );
 }

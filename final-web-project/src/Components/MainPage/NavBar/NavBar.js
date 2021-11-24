@@ -37,8 +37,8 @@ const NavBar = () => {
     return (
         <ul className="font-medium w-full max-h-30 h-14 px-2 border bg-gray-100 flex items-center rounded shadow overflow-hidden justify-around">
             <li className="p-2 flex rounded-lg">
-                <button className="p-2 rounded-lg hover:bg-gray-400" > <FaRegStar /> </button>
-                <button className="p-2 rounded-lg mr-1 hover:bg-gray-400"
+                <button className="p-2 rounded-lg hover:bg-gray-400 -ml-12 lg:-ml-48  lg:text-2xl" > <FaRegStar /> </button>
+                <button className="p-2 rounded-lg mr-1 hover:bg-gray-400 lg:text-2xl"
                     onClick={() => {
                         onClickShow();
                         if(active === true) {
@@ -50,15 +50,15 @@ const NavBar = () => {
                     className={`${active ? '' : 'hidden'} p-1 text-center w-32 rounded-lg border border-gray-400`}
                     placeholder="Buscar post" />
             </li>
-            <li className="">
-                <img className="h-9 w-9"
+            <li className="-ml-5 ">
+                <img className="h-9 w-9 "
                     src="https://w7.pngwing.com/pngs/568/379/png-transparent-technology-computer-icons-technology-electronics-text-logo.png" alt="logo" />
             </li>
 
-            <li className="flex items-center">
-                <button className="p-2 rounded-lg hover:bg-gray-400"
+            <li className="flex justify-end items-center -mr-9 ">
+                <button className="p-2 rounded-lg hover:bg-gray-400 lg:text-2xl"
                     onClick={onClickLogout}> <FaSignOutAlt /> </button>
-                <p className="hidden tablet:block"> Cerrar sesion </p>
+                <p className="hidden tablet:block lg:-mr-36"> Cerrar sesion </p>
             </li>
         </ul>
     );

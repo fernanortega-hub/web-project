@@ -1,7 +1,7 @@
 
 import react, { useState } from "react";
-import { FaUserCircle, FaStar, FaComment } from "react-icons/fa";
-import {AiFillHeart} from 'react-icons/ai';
+import { FaUserCircle, FaStar, FaComment, FaHeart } from "react-icons/fa";
+
 import axios from "axios";
 import Comments from "../Comment/Comment";
 import AddComment from "../AddComment/AddComment";
@@ -34,29 +34,31 @@ const PostCard = ({username, struct }) => {
     } = struct;
 
     const [showComm, setShow] = useState(false);
+    const [commentSt, setComments] = useState(comments)
 
+    //likes 
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
     const [likesNumber, setLikes] = useState(likes.length);
 
-    const [commentSt, setComments] = useState(comments)
+    
+
+    
 
     const [favoriteBut, setFavorite] = useState(false);
 
-    function addCommentChange(comment){
+    function addCommentChange(comments){
         const value = ([...commentSt, {...comments, user: {username}}]);
         setComments(value);
-
     }
     
     async function likesPost() {
-        
-
         try {
-            const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, {
+            const config = {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
-            });
+            }; 
+            const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`,null, config);               
             //cuando das like
             if (!liked) {
                 setLikes(likesNumber + 1);
@@ -83,51 +85,49 @@ const PostCard = ({username, struct }) => {
             console.log(error);           
         }    
     }
+    console.log(_id);
     
     return (
-        <div className="w-4/5 flex flex-col justify-center rounded-lg bg-gray-300 p-4 space-y-10">
-            <div className="flex flex-nowrap items-center space-x-3" >
-                <div>
-                    <FaUserCircle size="20" />
+        <div class=" h-4/6 bg-gray-100 flex justify-center items-center">
+            <div class="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                <div> 
+                    <h1 class="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">{title}</h1>
+                    <p class="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">{description}</p>
+                    {/*<p className=" w-full text-xs flex justify-end lg:text-lg"> {new Date(createdAt).toLocaleDateString()} </p>*/}
+                </div>
+                <img class="w-full cursor-pointer" src={image} alt="" />
+                <div class="flex p-4 justify-between">
+                    <div class="flex items-center space-x-2">
+                        <FaUserCircle class="w-10 rounded-full " size={25} />
+                        <h2 class="text-gray-800 font-bold cursor-pointer">@{user?.username}</h2>
                     </div>
-                        <h3 > @{user?.username} </h3>
-                        <p className="w-full text-xs flex justify-end"> {new Date(createdAt).toLocaleDateString()} </p>
-                    
-                </div>
-                <div>
-                    {
-                        <img className="w-full object-cover my-2 rounded-2xl h-auto" src={image} alt="Imagen para el usuario" />
-                    }
-                </div>
-                <div>
-                    <p className="font-semibold"> {title} </p>
-                    
-                </div>
-                <p> {description} </p>
-
-                <div className="flex justify-center space-x-8">
-                    <div className="flex justify-center">
-                        <button onClick={likesPost} className={`${liked && `text-blue-400`}`} type="button"><AiFillHeart className="mr-2" size={25} /></button>
-                        {likes.length}
+                <div class="flex space-x-2">
+                    <div class="flex space-x-1 items-center">
+                        <button onClick={()=>setShow(!showComm) } className={`${showComm && `text-blue-400`} text-gray-400`}><FaComment size={25}/></button>
+                        <span>{commentSt.length}</span>
                     </div>
-                    <div className="flex justify-center">
-                        <button onClick={()=>setShow(!showComm) } className={`${showComm && `text-blue-400`}`}><FaComment className={`mr-2 `}  size={25} /></button>
-                        {commentSt.length}
-                    </div>  
-                    <button onClick={favoritesPost} className={`flex  items-center h-full ${favoriteBut && `text-blue-400`}`}>
-                        <FaStar size={25} />
-                    </button>
+                    <div class="flex space-x-1 items-center">
+                        <button onClick={likesPost} className={`${liked && `text-blue-400`} text-gray-400`} fill="currentColor"> <FaHeart size={25} className="text-green"/></button>
+                        <span> {likes.length}</span>
+                    </div>
+                    <div class="flex space-x-3 items-center">
+                        <button onClick={favoritesPost} className={`${favoriteBut && `text-blue-400`} text-gray-400`}><FaStar size={25} /></button>
+                        
+                    </div>
                 </div>
+            </div>
                 <div className={`${!showComm && `hidden`}`} >
                     {
-                        comments && comments.map((it) => <Comments 
-                                                        key={shortid.generate()}
-                                                        infoComment={it}/>)            
+                        comments && comments.map((it) => <Comments key={shortid.generate()} infoComment={it}/>)            
                     }
-                    <AddComment id={_id} afterSubmit={addCommentChange} />
+                    <AddComment post={_id} afterSubmit={addCommentChange} />
+                </div>
             </div>
         </div>
     )
 }
 
 export default PostCard;
+
+
+

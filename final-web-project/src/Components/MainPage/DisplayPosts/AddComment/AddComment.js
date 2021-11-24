@@ -1,11 +1,11 @@
 import react from "react";
 import axios from "axios";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 
 
 
-const AddComment = (id, afterSubmit) =>{
+const AddComment = (post, afterSubmit) =>{
 
     const [inputVal, setInput] = useState('');
 
@@ -20,14 +20,15 @@ const AddComment = (id, afterSubmit) =>{
         e.preventDefault();
 
         const body = {
-            description: inputVal,
+            description: inputVal
         };
 
-        await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/comment/${id}`, body, {
+        const config = {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-        })
+        }; 
+        const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/comment/${post}`,null, config); 
         setInput('');
 
         afterSubmit(body);
@@ -36,12 +37,9 @@ const AddComment = (id, afterSubmit) =>{
     }
 
     return (
-        <div>
+        <div className=" px-5 py-2  ">
             <form>
-                <input value={inputVal} 
-                        placeholder="Press enter to comment" 
-                        type="text">                    
-                </input>
+                <input placeholder="Press enter to comment" type="text" className="w-full border-blue-400 border-2 py-2 px-4 rounded-xl h-10 "></input>
             </form>
         </div>
     )
