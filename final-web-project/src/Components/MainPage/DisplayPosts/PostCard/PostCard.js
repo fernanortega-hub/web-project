@@ -28,21 +28,16 @@ const [favorite, setFavorite] = useState(false);
 */
 
 const PostCard = ({username, struct }) => {
-
     const {
         _id, title, description, image, user, likes, createdAt, comments
     } = struct;
-
+    //comments
     const [showComm, setShow] = useState(false);
     const [commentSt, setComments] = useState(comments)
 
     //likes 
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
     const [likesNumber, setLikes] = useState(likes.length);
-
-    
-
-    
 
     const [favoriteBut, setFavorite] = useState(false);
 
@@ -58,6 +53,7 @@ const PostCard = ({username, struct }) => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             }; 
+            
             const {dataUser} = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`,null, config);               
             //cuando das like
             if (!liked) {
@@ -75,7 +71,6 @@ const PostCard = ({username, struct }) => {
 
     function favoritesPost() {
         try {
-
             if(!favoriteBut){
                 setFavorite(true);
             }else{
@@ -85,8 +80,13 @@ const PostCard = ({username, struct }) => {
             console.log(error);           
         }    
     }
-    console.log(_id);
-    
+    //Problema, como que no se trae el username entonces el boton de like no queda seteado como like y al recargar cambia de color
+    //Posible error: la url puede estar mala, la que trae el token con el axios
+    //Es necesesario arreglar 
+    //Ver AddComment
+    console.log(username);
+    console.log(user?.username);
+    console.log(likes.includes({username}));
     return (
         <div class=" h-4/6 bg-gray-100 flex justify-center items-center">
             <div class="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
@@ -97,7 +97,7 @@ const PostCard = ({username, struct }) => {
                 </div>
                 <img class="w-full cursor-pointer" src={image} alt="" />
                 <div class="flex p-4 justify-between">
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center space-x-0">
                         <FaUserCircle class="w-10 rounded-full " size={25} />
                         <h2 class="text-gray-800 font-bold cursor-pointer">@{user?.username}</h2>
                     </div>
@@ -118,9 +118,9 @@ const PostCard = ({username, struct }) => {
             </div>
                 <div className={`${!showComm && `hidden`}`} >
                     {
-                        comments && comments.map((it) => <Comments key={shortid.generate()} infoComment={it}/>)            
+                        comments && commentSt.map((it) => <Comments key={shortid.generate()} infoComment={it}/>)            
                     }
-                    <AddComment post={_id} afterSubmit={addCommentChange} />
+                    <AddComment post={_id} afterSubmit={addCommentChange}/>
                 </div>
             </div>
         </div>

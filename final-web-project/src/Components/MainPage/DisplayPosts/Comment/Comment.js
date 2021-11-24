@@ -11,7 +11,6 @@ const Comments = ({infoComment}) =>{
             </div>
         </div>
     )
-
 }
 
 export default Comments;
