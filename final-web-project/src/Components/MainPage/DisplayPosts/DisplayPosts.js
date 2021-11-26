@@ -1,6 +1,6 @@
 import PostCard from '../DisplayPosts/PostCard/PostCard';
 import Loading from '../../Loadings/Loading';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -13,23 +13,8 @@ const DisplayPosts = ({ username }) => {
         data: null,
     });
 
+    const pages = useRef();
     const [page, setpage] = useState(0);
-    let [allPages, setPages] = useState(0);
-
-    useEffect(() => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        };
-        const getPost = async () => {
-            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=0', config);
-
-            setPost({ status: 'Ok', data: response.data });
-        };
-
-        getPost();
-    }, []);
 
     useEffect(() => {
         const config = {
@@ -41,9 +26,10 @@ const DisplayPosts = ({ username }) => {
 
             const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=${page}`, config);
             setPost({ status: 'Ok', data: response.data });
-            setPages(allPages = response.pages);
+            pages.current = response.pages;
         };
         getPost();
+        console.log("infinito?");
     }, [page]);
 
     if (Post.status === 'Loading') return <Loading />;
@@ -66,7 +52,7 @@ const DisplayPosts = ({ username }) => {
                 <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
                     onClick={() => {
                         setpage(page + 1);
-                        if (page >= allPages) {
+                        if (page >= pages) {
                             toast('No hay mas paginas', { type: 'Warning' });
                             setpage(page - 1);
                         }

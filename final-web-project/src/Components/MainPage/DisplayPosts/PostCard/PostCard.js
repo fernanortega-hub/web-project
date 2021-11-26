@@ -12,18 +12,12 @@ const PostCard = ({ username, struct }) => {
     } = struct;
     //comments
     const [showComm, setShow] = useState(false);
-    const [commentSt, setComments] = useState(comments)
-
+    const [commentState, setComments] = useState(comments)
     //likes 
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
     const [likesNumber, setLikesNumber] = useState(likes.length);
     const [favoriteBut, setFavorite] = useState(false);
 
-
-    function addCommentChange(comments) {
-        const value = ([...commentSt, { ...comments, user: { username } }]);
-        setComments(value);
-    };
 
 
     async function likesPost() {
@@ -34,7 +28,7 @@ const PostCard = ({ username, struct }) => {
                 }
             };
 
-            const { dataLike } = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, config);
+            await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, config);
 
             //cuando das like
             if (!liked) {
@@ -51,6 +45,10 @@ const PostCard = ({ username, struct }) => {
         }
     };
 
+    function addCommentChange(comment) {
+        const value = ([...commentState, { ...comment, user: { username } }]);
+        setComments(value);
+    };
 
 
     function favoritesPost() {
@@ -84,7 +82,7 @@ const PostCard = ({ username, struct }) => {
                     <div className="flex space-x-2">
                         <div className="flex space-x-1 items-center">
                             <button type="button" onClick={() => setShow(!showComm)} className={`${showComm && `text-blue-400`} text-gray-400`}><FaComment size={25} /></button>
-                            <span>{commentSt.length}</span>
+                            <span>{commentState.length}</span>
                         </div>
                         <div className="flex space-x-1 items-center">
                             <button type="button" onClick={likesPost} className={`${liked && `text-red-400`} text-gray-400`} fill="currentColor"> <FaHeart size={25} className="text-green" /></button>
@@ -98,7 +96,7 @@ const PostCard = ({ username, struct }) => {
                 </div>
                 <div className={`${!showComm && `hidden`}`} >
                     {
-                        comments && commentSt.map((it) => <Comments key={shortid.generate()} infoComment={it} />)
+                        comments && commentState.map((it) => <Comments key={shortid.generate()} infoComment={it} />)
                     }
                     <AddComment post={_id} afterSubmit={addCommentChange} />
                 </div>

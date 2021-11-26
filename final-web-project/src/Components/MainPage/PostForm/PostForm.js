@@ -3,6 +3,7 @@ import { FaArrowDown } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PostForm = () => {
 
@@ -19,7 +20,7 @@ const PostForm = () => {
         const config = {
             headers: {
                 Authorization: `Bearer ${userToken}`,
-            },
+            }
         };
 
         // Guardando la informacion del formulario con formData
@@ -28,31 +29,30 @@ const PostForm = () => {
 
         if (formBody.title === "" || formBody.description === "") return toast('Llena todos los datos', { type: 'warning' });
 
-
         console.log(formBody);
+
         try {
-            const response = await axios.post(`https://posts-pw2021.herokuapp.com/api/v1/post/create`, {...formBody, active: formBody.active === 'on'}, config);
+            const response = await axios.post(`https://posts-pw2021.herokuapp.com/api/v1/post/create`, formBody, config);
             
-            if (response.status === 201) {
-                toast('Post creado!', { type: 'success' }, { position: 'top-center' });
-            }
+            if (response.status === 201) toast('Post creado!', { type: 'success' }, { position: 'top-center' });
         } catch (error) {
             const { response } = error;
-            if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'error' });
-            else if (response.status === 400) toast('Espera un momento', { type: 'error' });
+            if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'warning' });
+            if (response.status === 400) toast('Mal formulario', { type: 'error' });
+            
         }
     };
     
 
 
     return (
+        
         <div className="w-full h-auto max-h-96 bg-gray-100 border flex flex-col items-center rounded-lg shadow-lg laptop:w-1/2">
+            <ToastContainer />
             <button className="flex justify-center items-center p-4 w-full h-6 transition duration-1000 ease-in-out"
                 onClick={activeForm}>
                 {active ? <FaArrowUp /> : <FaArrowDown />}
             </button>
-
-            <ToastContainer />
             <main className={`${active ? '' : 'hidden'} w-max tablet:w-1/2`}>
                 <form onSubmit={onSubmitHandler}
                     className="flex flex-col p-4 space-y-2 ">
