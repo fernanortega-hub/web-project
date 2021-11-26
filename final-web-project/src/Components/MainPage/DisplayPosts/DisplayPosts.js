@@ -50,9 +50,6 @@ const DisplayPosts = ({ username }) => {
 
     return (
         <div className="w-full min-h-screen bg-gray-100 border rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2">
-            <div className="w-4/5 flex justify-end">
-                <span className="bg-gray-400 px-4 py-2 rounded-lg text-white font-medium" > Página: {page + 1} </span>
-            </div>
             {
                 Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} />)
             }

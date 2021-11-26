@@ -31,8 +31,8 @@ const AddComment = (post, afterSubmit) => {
     //Ver PostCard
     return (
         <div className=" px-5 py-2  ">
-            <form>
-                <input placeholder="Press enter to comment" type="text" className="w-full border-blue-400 border-2 py-2 px-4 rounded-xl h-10 " value={inputVal}/>
+            <form onChange={onChange} onSubmit={onSubmit}>
+                <input placeholder="Press enter to comment" minLength="8" type="text" className="w-full border-blue-400 border-2 py-2 px-4 rounded-xl h-10 " value={inputVal}/>
             </form>
         </div>
     )

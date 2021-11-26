@@ -40,7 +40,7 @@ const Login = () => {
             }
         } catch (error) {
             const { response } = error
-
+            
             if(response.status === 404) toast('Usuario no encontrado', { type: 'error' });
             else if(response.status === 403) toast('Servicio denegado', { type: 'error' });
         }

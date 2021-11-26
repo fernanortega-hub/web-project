@@ -31,8 +31,7 @@ const PostForm = () => {
 
         console.log(formBody);
         try {
-            const response = await axios.post(`https://posts-pw2021.herokuapp.com/api/v1/post/create`, formBody, config);
-
+            const response = await axios.post(`https://posts-pw2021.herokuapp.com/api/v1/post/create`, {...formBody, active: formBody.active === 'on'}, config);
             
             if (response.status === 201) {
                 toast('Post creado!', { type: 'success' }, { position: 'top-center' });
@@ -40,6 +39,7 @@ const PostForm = () => {
         } catch (error) {
             const { response } = error;
             if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'error' });
+            else if (response.status === 400) toast('Espera un momento', { type: 'error' });
         }
     };
     
@@ -57,7 +57,7 @@ const PostForm = () => {
                 <form onSubmit={onSubmitHandler}
                     className="flex flex-col p-4 space-y-2 ">
                     <input placeholder="Titulo de publicación"
-                        name="title" id="title" className=" rounded px-2 py-2" minLength="8" />
+                        name="title" id="title" className=" rounded px-2 py-2" minLength="8" maxLength="32" />
 
                     <input placeholder="Descripción"
                         name="description" id="description" className=" rounded px-2 py-2 max-h-24 h-24" minLength="8" />

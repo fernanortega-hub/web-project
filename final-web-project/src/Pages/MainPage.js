@@ -9,7 +9,6 @@ import { Auth } from "../Services/Services";
 import Redirect from "../Components/Loadings/Redirect";
 import LoadingPage from "../Components/Loadings/LoadingPage";
 
-
 const MainPage = () => {
     const [username, setUser] = useState();
     const navigate = useNavigate();
@@ -39,6 +38,7 @@ const MainPage = () => {
             <ToastContainer />
             <NavBar />
             {role === "admin" && <PostForm />}
+            
             <DisplayPosts username={username} />
             <Footer />
         </div>
