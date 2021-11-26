@@ -13,42 +13,39 @@ const PostCard = ({username, struct }) => {
     //comments
     const [showComm, setShow] = useState(false);
     const [commentSt, setComments] = useState(comments)
+
     //likes 
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
-    
-    const [likesNumber, setLikes] = useState(likes.length);
-
+    const [likesNumber, setLikesNumber] = useState(likes.length);
     const [favoriteBut, setFavorite] = useState(false);
-
-    // console.log(username);
-    // console.log(likes.some((it) => it.username === username));
 
     function addCommentChange(comments){
         const value = ([...commentSt, {...comments, user: {username}}]);
         setComments(value);
     };
 
-
     
+
     async function likesPost() {
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
+                }
             }; 
             
-            const dataLike = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`,null, config);
+            const { dataLike } = await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/like/${_id}`, null, config);
             
             //cuando das like
             if (!liked) {
-                setLikes(likesNumber + 1);
+                setLikesNumber(likesNumber + 1);
                 setLiked(true);
             } else {
                 //Cuando le quitas like
-                setLikes(likesNumber - 1);
+                setLikesNumber(likesNumber - 1);
                 setLiked(false);      
             }
+
         } catch (error) {
             console.log(error);
         }  
@@ -69,12 +66,7 @@ const PostCard = ({username, struct }) => {
             console.log(error);           
         }    
     }
-    //Problema, como que no se trae el username entonces el boton de like no queda seteado como like y al recargar cambia de color
-    //Posible error: la url puede estar mala, la que trae el token con el axios
-    //Es necesesario arreglar 
-    //Ver AddComment
-    //console.log(user?.username); //-> devuelve los que estan en la pagina
-    // console.log(likes.includes({username}));
+    
     return (
         <div className="h-4/6 bg-gray-100 flex justify-center items-center w-11/12">
             <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">

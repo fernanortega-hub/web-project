@@ -12,6 +12,7 @@ import Redirect from "./Redirect";
 
 const MainPage = () => {
     const [role, setRole] = useState();
+    const [user, setUser] = useState();
     const navigate = useNavigate();
     const token = localStorage.getItem('token')
     //Para los panas: si no usaba useEffect entraba en loop hasta que devolviera la promesa --BORRAR--
@@ -21,6 +22,7 @@ const MainPage = () => {
             try{
                 let response = await Auth(token);
                 setRole(response.role);
+                setUser(response.username);
                 localStorage.setItem('role', role);
 
             }catch(error){
@@ -42,8 +44,8 @@ const MainPage = () => {
         <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden">
             <ToastContainer />
             <NavBar/>
-            {role === "admin" && <PostForm/>}
-            <DisplayPosts/>
+            {role === "admin" && <PostForm />}
+            <DisplayPosts username={user}/>
             <Footer/>
         </div>
     );

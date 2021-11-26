@@ -6,7 +6,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 
-const DisplayPosts = () => {
+const DisplayPosts = ({username}) => {
 
     const [Post, setPost] = useState({
         status: 'Loading',
@@ -23,7 +23,7 @@ const DisplayPosts = () => {
             },
         };
         const getPost = async () => {
-            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=0', config);
+            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=3&page=0', config);
 
             setPost({ status: 'Ok', data: response.data });
         };
@@ -54,7 +54,7 @@ const DisplayPosts = () => {
                 <span className="bg-gray-400 px-4 py-2 rounded-lg text-white font-medium" > Página: {page + 1} </span>
             </div>
             {
-                Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} />)
+                Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} />)
             }
 
             <div className="flex items-center h-14 justify-center">
