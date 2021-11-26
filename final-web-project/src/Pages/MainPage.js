@@ -6,29 +6,34 @@ import DisplayPosts from '../Components/MainPage/DisplayPosts/DisplayPosts';
 import Footer from '../Components/MainPage/Footer/Footer';
 import { ToastContainer, toast } from "react-toastify";
 import { Auth } from "../Services/Services";
+import Redirect from "./Redirect";
 
 
 
 const MainPage = () => {
-    const [role, setRole] = useState(()=>{return undefined});
+    const [role, setRole] = useState();
     const navigate = useNavigate();
-
+    const token = localStorage.getItem('token')
     //Para los panas: si no usaba useEffect entraba en loop hasta que devolviera la promesa --BORRAR--
     useEffect(()=>{
-        const verifyRole = async(token) =>{
+
+        const verifyUser = async (token) =>{
             try{
                 let response = await Auth(token);
                 setRole(response.role);
                 localStorage.setItem('role', role);
+
             }catch(error){
-                toast('Algo salio mal', { type: 'error' });
-                localStorage.removeItem('token', 'role');
+                toast('Algo salio mal, inicia sesion nuevamente', { type: 'error' });
+                localStorage.removeItem('token');
+                localStorage.removeItem('role');
                 navigate('/');
             }
         }
-        verifyRole(localStorage.getItem('token'));
+        verifyUser(token);
+    },[]);
 
-    },[role]);
+    if(!localStorage.getItem('token')) return <Redirect/>;
 
     //createPost(title, description, url); -> setPost();
     //logout(); -> emptyLocalStorage && set role to undefined;

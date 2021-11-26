@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
 import axios from 'axios';
@@ -46,7 +46,7 @@ const PostForm = () => {
 
 
     return (
-        <div className="w-4/5 h-auto max-h-96 bg-gray-100 border flex flex-col items-center rounded-lg shadow-lg laptop:w-1/2">
+        <div className="w-full h-auto max-h-96 bg-gray-100 border flex flex-col items-center rounded-lg shadow-lg laptop:w-1/2">
             <button className="flex justify-center items-center p-4 w-full h-6 transition duration-1000 ease-in-out"
                 onClick={activeForm}>
                 {active ? <FaArrowUp /> : <FaArrowDown />}
