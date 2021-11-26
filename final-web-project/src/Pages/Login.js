@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { signIn, Auth } from "../Services/Services";
+import { signIn } from "../Services/Services";
 
 const Login = () => {
     const username = useRef(null);
@@ -32,10 +32,11 @@ const Login = () => {
             
             if(response.status === 200) {
                 localStorage.setItem('token', response.data.token);
-                const dataAuth = await Auth(response.data.token);
-                //console.log(dataAuth.role);
-                if(dataAuth.role === "admin") navigate('/MainPage');
-                else if (dataAuth.role === "user") navigate('/MainPage');
+                localStorage.setItem('role', response.data.role);
+
+                if(response.data.role === "admin") navigate('/MainPage');
+                
+                else if (response.data.role === "user") navigate('/MainPage');   
             }
         } catch (error) {
             const { response } = error

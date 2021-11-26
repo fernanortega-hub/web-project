@@ -18,6 +18,7 @@ const PostCard = ({username, struct }) => {
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
     const [likesNumber, setLikesNumber] = useState(likes.length);
     const [favoriteBut, setFavorite] = useState(false);
+    
 
     function addCommentChange(comments){
         const value = ([...commentSt, {...comments, user: {username}}]);
@@ -25,7 +26,6 @@ const PostCard = ({username, struct }) => {
     };
 
     
-
     async function likesPost() {
         try {
             const config = {

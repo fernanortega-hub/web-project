@@ -1,12 +1,12 @@
 import PostCard from '../DisplayPosts/PostCard/PostCard';
-import Loading from '../Loading/Loading';
-import { useState, useEffect, useRef } from 'react';
+import Loading from '../../Loadings/Loading';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 
-const DisplayPosts = ({username}) => {
+const DisplayPosts = ({ username }) => {
 
     const [Post, setPost] = useState({
         status: 'Loading',
@@ -23,7 +23,7 @@ const DisplayPosts = ({username}) => {
             },
         };
         const getPost = async () => {
-            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=3&page=0', config);
+            const { data: response } = await axios.get('https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=0', config);
 
             setPost({ status: 'Ok', data: response.data });
         };
@@ -39,7 +39,7 @@ const DisplayPosts = ({username}) => {
         };
         const getPost = async () => {
 
-            const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=15&page=${page}`, config);
+            const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/all?limit=10&page=${page}`, config);
             setPost({ status: 'Ok', data: response.data });
             setPages(allPages = response.pages);
         };
