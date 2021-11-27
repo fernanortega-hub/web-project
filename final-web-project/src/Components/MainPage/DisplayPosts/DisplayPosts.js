@@ -30,7 +30,7 @@ const DisplayPosts = ({ username }) => {
         };
         getPost();
         console.log("infinito?");
-    }, [page]);
+    }, [page]); 
 
     if (Post.status === 'Loading') return <Loading />;
 

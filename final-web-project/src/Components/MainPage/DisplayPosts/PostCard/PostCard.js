@@ -18,6 +18,7 @@ const PostCard = ({ username, struct }) => {
     const [likesNumber, setLikesNumber] = useState(likes.length);
     const [favoriteBut, setFavorite] = useState(false);
 
+    console.log("postcard: id = " + _id);
 
     useEffect(() => {
         const config = {

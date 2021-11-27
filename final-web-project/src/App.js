@@ -2,6 +2,7 @@ import React from 'react';
 import Login from './Pages/Login';
 import MainPage from './Pages/MainPage';
 import NotFound from './Pages/NotFound';
+import Favorites from './Pages/Favorites';
 
 import {
   BrowserRouter as Router,
@@ -27,6 +28,15 @@ const App = () => {
             </div>
           }
         />
+
+        <Route exact path="/favorites"
+          element={
+            <div>
+              <Favorites />
+            </div>
+          }
+        />
+
         <Route path="*" element={
           <NotFound />
         }/>

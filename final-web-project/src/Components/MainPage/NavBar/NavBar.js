@@ -49,7 +49,8 @@ const NavBar = () => {
     return (
         <ul className="font-medium w-full max-h-30 h-14 p-4 border bg-gray-100 flex items-center rounded shadow overflow-hidden justify-around">
             <li className="flex rounded-lg">
-                <button className="p-2 rounded-lg hover:bg-gray-400  lg:-ml-48 lg:text-2xl" > <FaRegStar /> </button>
+                <button className="p-2 rounded-lg hover:bg-gray-400  lg:-ml-48 lg:text-2xl"
+                    onClick={(e)=>{navigate('/favorites')}}> <FaRegStar /> </button>
                 <button className="p-2 rounded-lg mr-1 hover:bg-gray-400 lg:text-2xl"> <FaSearch /> </button>
                 
                 <input
