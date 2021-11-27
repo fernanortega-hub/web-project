@@ -19,6 +19,26 @@ const PostCard = ({ username, struct }) => {
     const [favoriteBut, setFavorite] = useState(false);
 
 
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        };
+        const getFavList = async () => {
+
+            const { data: response } = await axios.get(`https://posts-pw2021.herokuapp.com/api/v1/post/fav`, config);
+            let checker = false;
+            response.favorites.map((favId)=>{
+                if(favId == _id){
+                    checker = true
+                }
+            })
+            setFavorite(checker);
+
+        };
+        getFavList();
+    }, [favoriteBut]);
 
     async function likesPost() {
         try {
@@ -51,9 +71,17 @@ const PostCard = ({ username, struct }) => {
     };
 
 
-    function favoritesPost() {
+    async function favoritesPost() {
 
         try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            };
+
+            await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/fav/${_id}`, null, config);
+    
             if (!favoriteBut) {
                 setFavorite(true);
             } else {
