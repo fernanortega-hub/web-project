@@ -29,18 +29,17 @@ const DisplayPosts = ({ username }) => {
             pages.current = response.pages;
         };
         getPost();
-        console.log("infinito?");
     }, [page]); 
 
     if (Post.status === 'Loading') return <Loading />;
 
     return (
-        <div className="w-full min-h-screen bg-gray-100 border rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2">
+        <div className="w-full min-h-screen bg-gray-100 rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2 dark:bg-gray-600">
             {
                 Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} />)
             }
 
-            <div className="flex items-center h-14 justify-center">
+            <div className="flex items-center h-14 justify-center dark:bg-gray-600">
                 <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
                     onClick={() => {
                         setpage(page - 1);

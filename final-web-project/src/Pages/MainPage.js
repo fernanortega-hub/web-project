@@ -34,7 +34,7 @@ const MainPage = () => {
     if (!localStorage.getItem('token')) return <Redirect />;
 
     return (    
-        <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden">
+        <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden dark:bg-gray-900">
             <ToastContainer />
             <NavBar />
             {role === "admin" && <PostForm />}

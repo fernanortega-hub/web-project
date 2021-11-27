@@ -46,9 +46,9 @@ const Favorites = () => {
             auxPosts.push(post);
         }
         
-        const arrayChecker = async () => {
+        const arrayChecker = () => {
             if(postIds){
-                await postIds.map((id)=>{
+                postIds.map((id)=>{
                     getPost(id);
                 });
             }

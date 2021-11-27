@@ -47,32 +47,22 @@ const PostForm = () => {
 
     return (
         
-        <div className="w-full h-auto max-h-96 bg-gray-100 border flex flex-col items-center rounded-lg shadow-lg laptop:w-1/2">
+        <div className="w-full h-auto max-h-96 bg-gray-100 flex flex-col items-center rounded-lg shadow-lg laptop:w-1/2 dark:bg-gray-600">
             <ToastContainer />
-            <button className="flex justify-center items-center p-4 w-full h-6 transition duration-1000 ease-in-out"
+            <button className="flex justify-center items-center p-4 w-full h-6 dark:text-white"
                 onClick={activeForm}>
                 {active ? <FaArrowUp /> : <FaArrowDown />}
             </button>
-            <main className={`${active ? '' : 'hidden'} w-max tablet:w-1/2`}>
+            <main className={`${active ? '' : 'hidden'} w-max tablet:w-1/2 dark:text-white`}>
                 <form onSubmit={onSubmitHandler}
                     className="flex flex-col p-4 space-y-2 ">
                     <input placeholder="Titulo de publicación"
-                        name="title" id="title" className=" rounded px-2 py-2" minLength="8" maxLength="32" />
+                        name="title" id="title" className=" rounded px-2 py-2 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8" maxLength="32" />
 
                     <input placeholder="Descripción"
-                        name="description" id="description" className=" rounded px-2 py-2 max-h-24 h-24" minLength="8" />
+                        name="description" id="description" className="rounded px-2 py-2 max-h-24 h-24 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8" />
 
-                    <input placeholder="Imagen (URL)" name="image" id="image" className=" rounded px-2 py-2" />
-
-                    <div className = "flex justify-items-center">
-                        <label htmlFor="active">Post visible?</label>
-                        <input
-                            className="rounded-lg text-blue-500 w-5 h-5 mx-2 focus:ring-blue-400 focus:ring-opacity-25 border border-gray-300"
-                            type="checkbox"
-                            name="active"
-                            id="active"
-                        />
-                    </div>
+                    <input placeholder="Imagen (URL)" name="image" id="image" className=" rounded px-2 py-2 dark:placeholder-gray-300 dark:bg-gray-500" />
 
                     <button className="bg-indigo-600 rounded-xl text-white font-medium py-2 px-6 hover:bg-indigo-800"> Subir </button>
                 </form>
