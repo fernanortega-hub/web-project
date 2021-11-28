@@ -6,8 +6,9 @@ import Comments from "../Comment/Comment";
 import AddComment from "../AddComment/AddComment";
 import shortid from 'shortid';
 import { toast, ToastContainer } from 'react-toastify';
+import EditForm from "../../../Profile/DisplayOwned/EditForm/EditForm";
 
-const PostCard = ({ username, struct, reference}) => {
+const PostCard = ({ username, struct, reference, reloadReference}) => {
     const {
         _id, title, description, image, user, likes, comments, createdAt
     } = struct;
@@ -20,6 +21,8 @@ const PostCard = ({ username, struct, reference}) => {
     const [likeCount, setLikes] = useState(likes.length)
     const [favoriteBut, setFavorite] = useState(false);
     const [post, setPost] = useState();
+    //edit
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         async function getFavList() {
@@ -102,13 +105,8 @@ const PostCard = ({ username, struct, reference}) => {
         }
     };
 
-    async function editPost(){
-        setEdit(!edit);
-    }
-
-
     return (
-        <div className="h-4/6 bg-gray-100 flex justify-center items-center w-11/12 dark:bg-gray-600">
+        <div className="h-4/6 bg-gray-100 flex flex-col justify-center items-center w-11/12 dark:bg-gray-600">
             <ToastContainer />
             <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:shadow-2xl dark:bg-gray-500">
                 <div className="p-4">
@@ -136,7 +134,7 @@ const PostCard = ({ username, struct, reference}) => {
                         </div>
                         {reference == "DisplayOwned" && 
                             <div className="flex space-x-3 items-center">
-                                <button type="button" onClick={editPost} className={` text-gray-500`}><FaEdit size={25} /> </button>
+                                <button type="button" onClick={()=>{setEdit(!edit)}} className={` text-gray-500`}><FaEdit size={25} /> </button>
                             </div>
                         }
                     </div>
@@ -147,9 +145,11 @@ const PostCard = ({ username, struct, reference}) => {
                     }
                     <AddComment post={_id} afterSubmit={addCommentChange} />
                 </div>
-            </div>
-        
-            {edit && <h1>EDITAR</h1>}
+                {edit && <EditForm postId={_id} setStatus={()=>{
+                    setEdit(false);
+                    reloadReference();
+                    }}/>}
+            </div>        
         </div>
     )
 }

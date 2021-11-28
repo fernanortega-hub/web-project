@@ -39,14 +39,6 @@ const App = () => {
           }
         />
 
-        <Route exact path="/favorites"
-          element={
-            <div>
-              <Favorites />
-            </div>
-          }
-        />
-
         <Route exact path="/profile"
           element={
             <div>

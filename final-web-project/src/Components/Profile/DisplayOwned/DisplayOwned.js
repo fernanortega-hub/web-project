@@ -5,8 +5,6 @@ import { toast } from 'react-toastify';
 import PostCard from '../../MainPage/DisplayPosts/PostCard/PostCard';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
-
-
 const DisplayOwned = ({username}) => {
     
     const [Post, setPost] = useState({
@@ -16,8 +14,8 @@ const DisplayOwned = ({username}) => {
 
     const pages = useRef();
     const [page, setpage] = useState(0);
-
-
+    const [reload, setReload] = useState(()=>{return false});
+    
     useEffect(() => {
         const config = {
             headers: {
@@ -31,14 +29,17 @@ const DisplayOwned = ({username}) => {
             pages.current = response.pages;
         };
         getOwned();
-    }, [page]); 
+    }, [page, reload]); 
 
     if (Post.status === 'Loading') return <Loading />;
     
     return(
         <div className="w-full min-h-screen bg-gray-100 rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2 dark:bg-gray-600">
         {
-            Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} reference={"DisplayOwned"}/>)
+            Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} reference={"DisplayOwned"} reloadReference={()=>{
+                //window.location.reload(false);
+                setReload(!reload);
+            }}/>)
         }
 
         <div className="flex items-center h-14 justify-center dark:bg-gray-600">
