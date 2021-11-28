@@ -8,9 +8,8 @@ export default function UseDarkMode() {
 
     useEffect(() => {
         const root = window.document.documentElement;
-
-        root.classList.remove(colorTheme);
         root.classList.add(theme);
+        root.classList.remove(colorTheme);
     }, [theme, colorTheme])
 
     return [colorTheme, setTheme];

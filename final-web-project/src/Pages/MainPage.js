@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/MainPage/NavBar/NavBar';
 import PostForm from '../Components/MainPage/PostForm/PostForm';
 import DisplayPosts from '../Components/MainPage/DisplayPosts/DisplayPosts';
-import Footer from '../Components/MainPage/Footer/Footer';
+
 import { ToastContainer, toast } from "react-toastify";
 import { Auth } from "../Services/Services";
 import Redirect from "../Components/Loadings/Redirect";
@@ -21,7 +21,6 @@ const MainPage = () => {
             try {
                 const response = await Auth(token);
                 setUser(response.username);
-                localStorage.setItem('username', response.username);
             } catch (error) {
                 toast('Algo salio mal, inicia sesion nuevamente', { type: 'error' });
                 navigate('/');
@@ -41,7 +40,6 @@ const MainPage = () => {
             <NavBar username={username} />
             {role === "admin" && <PostForm />}
             <DisplayPosts username={username} />
-            <Footer />
         </div>
     );
 };

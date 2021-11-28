@@ -34,11 +34,11 @@ const PostForm = () => {
         try {
             const response = await axios.post(`https://posts-pw2021.herokuapp.com/api/v1/post/create`, formBody, config);
             
-            if (response.status === 201) toast('Post creado!', { type: 'success' }, { position: 'top-center' });
+            if (response.status === 201) toast('Post creado!', { type: 'success' });
         } catch (error) {
             const { response } = error;
             if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'warning' });
-            if (response.status === 400) toast('Mal formulario', { type: 'error' });
+            if (response.status === 400) toast('El formulario no esta correctamente escrito', { type: 'error' });
             
         }
     };

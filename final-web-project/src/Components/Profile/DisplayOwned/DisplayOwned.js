@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import PostCard from '../../MainPage/DisplayPosts/PostCard/PostCard';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import UseDarkMode from '../../../Services/UseDarkMode';
 
 const DisplayOwned = ({username}) => {
     
@@ -15,7 +16,6 @@ const DisplayOwned = ({username}) => {
     const pages = useRef();
     const [page, setpage] = useState(0);
     const [reload, setReload] = useState(()=>{return false});
-    
     useEffect(() => {
         const config = {
             headers: {
@@ -34,10 +34,10 @@ const DisplayOwned = ({username}) => {
     if (Post.status === 'Loading') return <Loading />;
     
     return(
-        <div className="w-full min-h-screen bg-gray-100 rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2 dark:bg-gray-600">
+        <div className="w-full min-h-screen bg-gray-100 rounded-xl space-y-10 flex flex-col py-8 items-center gap-3 laptop:w-1/2 dark:bg-gray-600">
         {
             Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} reference={"DisplayOwned"} reloadReference={()=>{
-                //window.location.reload(false);
+                //window.location.reload();
                 setReload(!reload);
             }}/>)
         }
@@ -52,9 +52,9 @@ const DisplayOwned = ({username}) => {
             </button>
             <span className="bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page + 1} </span>
             <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
-                onClick={() => {
+                onClick={(e) => {
                     setpage(page + 1);
-                    if (page >= pages) {
+                    if (page > pages) {
                         toast('No hay mas paginas', { type: 'Warning' });
                         setpage(page - 1);
                     }

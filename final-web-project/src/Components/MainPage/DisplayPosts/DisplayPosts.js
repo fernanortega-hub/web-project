@@ -39,16 +39,16 @@ const DisplayPosts = ({ username }) => {
                 Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username}/>)
             }
 
-            <div className="flex items-center h-14 justify-center dark:bg-gray-600">
-                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
+            <div className="flex items-center h-14 justify-center">
+                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600 dark:hover:bg-gray-800" 
                     onClick={() => {
                         setpage(page - 1);
                         if (page === 0) setpage(page);
                     }}>
                     <FaArrowLeft className="mr-1" />
                 </button>
-                <span className="bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium" > {page + 1} </span>
-                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600"
+                <span className="bg-gray-400 my-3 px-2 py-1 rounded-lg text-white font-medium dark:bg-gray-800" > {page + 1} </span>
+                <button className="bg-gray-400 m-2 p-2 rounded-lg text-white flex items-center hover:bg-gray-600 dark:hover:bg-gray-800"
                     onClick={() => {
                         setpage(page + 1);
                         if (page >= pages) {

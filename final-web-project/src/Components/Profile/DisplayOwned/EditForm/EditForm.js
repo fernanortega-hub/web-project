@@ -36,9 +36,9 @@ const EditForm = ({postId, setStatus}) => {
             }
         } catch (error) {
             const { response } = error;
-            //if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'warning' });
-            //if (response.status === 400) toast('Mal formulario', { type: 'error' });
-            //if (response.status === 404) toast('post no encontrado', { type: 'error' });
+            if (response.status === 401) toast('No tienes acceso a esta funcion', { type: 'warning' });
+            if (response.status === 400) toast('Mal formulario', { type: 'error' });
+            if (response.status === 404) toast('post no encontrado', { type: 'error' });
         }
     };
 
@@ -50,10 +50,10 @@ const EditForm = ({postId, setStatus}) => {
                 <form onSubmit={onSubmitHandler}
                     className="flex flex-col p-4 space-y-2 ">
                     <input placeholder="Titulo de publicación"
-                        name="title" id="title" className=" rounded px-2 py-2 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8" maxLength="32" />
+                        name="title" id="title" className=" rounded px-2 py-2 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8" maxLength="32"/>
 
                     <input placeholder="Descripción"
-                        name="description" id="description" className="rounded px-2 py-2 max-h-24 h-24 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8" />
+                        name="description" id="description" className="rounded px-2 py-2 max-h-24 h-24 dark:bg-gray-500 dark:placeholder-gray-300" minLength="8"/>
 
                     <input placeholder="Imagen (URL)" name="image" id="image" className=" rounded px-2 py-2 dark:placeholder-gray-300 dark:bg-gray-500" />
 

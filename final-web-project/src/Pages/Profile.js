@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import DisplayOwned from "../Components/Profile/DisplayOwned/DisplayOwned";
 import { Auth } from "../Services/Services";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import NavBar from '../Components/MainPage/NavBar/NavBar';
 
 const Profile = () => {
     const [username, setUser] = useState();
@@ -23,6 +24,8 @@ const Profile = () => {
 
     return(
         <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden dark:bg-gray-900">
+            <ToastContainer/>
+            <NavBar username={username}/>
             <DisplayOwned username={username}/>
         </div>
     );
