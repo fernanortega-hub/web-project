@@ -10,7 +10,7 @@ import EditForm from "../../../Profile/DisplayOwned/EditForm/EditForm";
 
 const PostCard = ({ username, struct, reference, reloadReference}) => {
     const {
-        _id, title, description, image, user, likes, comments, createdAt
+        _id, title, description, image, user, likes, comments, createdAt, active
     } = struct;
     //comments
     const [showComm, setShow] = useState(false);
@@ -23,6 +23,10 @@ const PostCard = ({ username, struct, reference, reloadReference}) => {
     const [post, setPost] = useState();
     //edit
     const [edit, setEdit] = useState(false);
+    //toogle
+    const [postStatus, setPostStatus] = useState(active);
+    console.log("Titulo: "+ title);
+    console.log("Estado: "+ active)
 
     useEffect(() => {
         async function getFavList() {
@@ -105,10 +109,39 @@ const PostCard = ({ username, struct, reference, reloadReference}) => {
         }
     };
 
+    const toogleHandler= async () => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            };
+
+        await axios.patch(`https://posts-pw2021.herokuapp.com/api/v1/post/toggle/${_id}`, null, config);
+        setPostStatus(!postStatus);
+        reloadReference();
+        }catch(e){
+            console.log("Hubo un error 10000");
+        }
+    }
+
     return (
         <div className="h-4/6 bg-gray-100 flex flex-col justify-center items-center w-11/12 dark:bg-gray-600">
             <ToastContainer />
-            <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:shadow-2xl dark:bg-gray-500">
+            <div className="max-w-md container bg-white rounded-xl shadow-lg transform transition duration-500 hover:shadow-2xl dark:bg-gray-500 overflow-x-hidden">
+                {reference == "DisplayOwned" && active && 
+                    <div className="w-full bg-green-600 flex justify-around overflow-x-hidden">
+                        <h1 className="text-gray-800 font-bold">ACTIVO</h1>
+                        <button onClick={(e)=>{toogleHandler()}}>desactivar</button>
+                    </div>
+                }
+
+                {reference == "DisplayOwned" && !active && 
+                    <div className="w-full bg-red-500 flex justify-around overflow-x-hidden">
+                        <h1 className="text-gray-800 font-bold">DESACTIVO</h1>
+                        <button onClick={(e)=>{toogleHandler()}}>activar</button>
+                    </div>
+                }
                 <div className="p-4">
                     <h1 className="text-2xl font-bold text-gray-800 cursor-pointer break-all hover:text-gray-900 transition duration-100 dark:text-white">{title}</h1>
                     <p className="text-xs dark:text-white"> {new Date(createdAt).toLocaleDateString()} </p>
