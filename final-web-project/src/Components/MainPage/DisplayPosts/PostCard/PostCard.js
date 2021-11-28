@@ -1,13 +1,13 @@
 
 import react, { useState, useEffect, useRef } from "react";
-import { FaUserCircle, FaStar, FaComment, FaHeart } from "react-icons/fa";
+import { FaUserCircle, FaStar, FaComment, FaHeart, FaEdit } from "react-icons/fa";
 import axios from "axios";
 import Comments from "../Comment/Comment";
 import AddComment from "../AddComment/AddComment";
 import shortid from 'shortid';
 import { toast, ToastContainer } from 'react-toastify';
 
-const PostCard = ({ username, struct }) => {
+const PostCard = ({ username, struct, reference}) => {
     const {
         _id, title, description, image, user, likes, comments, createdAt
     } = struct;
@@ -102,7 +102,9 @@ const PostCard = ({ username, struct }) => {
         }
     };
 
-
+    async function editPost(){
+        setEdit(!edit);
+    }
 
 
     return (
@@ -132,6 +134,11 @@ const PostCard = ({ username, struct }) => {
                         <div className="flex space-x-3 items-center">
                             <button type="button" onClick={favoritesPost} className={`${favoriteBut && `text-yellow-400`} text-gray-400`}><FaStar size={25} /> </button>
                         </div>
+                        {reference == "DisplayOwned" && 
+                            <div className="flex space-x-3 items-center">
+                                <button type="button" onClick={editPost} className={` text-gray-500`}><FaEdit size={25} /> </button>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className={`${!showComm && `hidden`}`} >
@@ -141,8 +148,50 @@ const PostCard = ({ username, struct }) => {
                     <AddComment post={_id} afterSubmit={addCommentChange} />
                 </div>
             </div>
+        
+            {edit && <h1>EDITAR</h1>}
         </div>
     )
 }
 
 export default PostCard;
+
+
+/*
+<div className="p-4">
+                    <h1 className="text-2xl font-bold text-gray-800 cursor-pointer break-all hover:text-gray-900 transition duration-100 dark:text-white">{title}</h1>
+                    <p className="text-xs dark:text-white"> {new Date(createdAt).toLocaleDateString()} </p>
+                    <p className="text-gray-700 mt-3 hover:underline cursor-pointer break-all dark:text-white">{description}</p>
+                </div>
+                <img className="w-full cursor-pointer" src={image} alt="" />
+                <div className="flex p-4 justify-between dark:text-white">
+                    <div className="flex items-center space-x-0 ">
+                        <FaUserCircle className="w-10 rounded-full" size={25} />
+                        <h2 className="text-gray-800 font-bold cursor-pointer dark:text-white">@{user?.username}</h2>
+                    </div>
+                    <div className="flex space-x-2 items-center">
+                        <div className="flex space-x-1 items-center">
+                            <button type="button" onClick={() => setShow(!showComm)} className={`${showComm && `text-blue-400`} text-gray-400`}><FaComment size={25} /></button>
+                            <span>{commentState.length}</span>
+                        </div>
+                        <div className="flex space-x-1 items-center">
+                            <button type="button" onClick={likesPost} className={`${liked && `text-red-400`} text-gray-400`} fill="currentColor"> <FaHeart size={25} className="text-green" /></button>
+                            <span> { likeCount }</span>
+                        </div>
+                        <div className="flex space-x-3 items-center">
+                            <button type="button" onClick={favoritesPost} className={`${favoriteBut && `text-yellow-400`} text-gray-400`}><FaStar size={25} /> </button>
+                        </div>
+                        {reference == "DisplayOwned" && 
+                            <div className="flex space-x-3 items-center">
+                                <button type="button" onClick={(e)=>{console.log("funciona")}} className={` text-gray-500`}><FaEdit size={25} /> </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={`${!showComm && `hidden`}`} >
+                    {
+                        comments && commentState.map((it) => <Comments key={shortid.generate()} infoComment={it} />)
+                    }
+                    <AddComment post={_id} afterSubmit={addCommentChange} />
+                </div>
+*/

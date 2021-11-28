@@ -17,6 +17,7 @@ const DisplayOwned = ({username}) => {
     const pages = useRef();
     const [page, setpage] = useState(0);
 
+
     useEffect(() => {
         const config = {
             headers: {
@@ -37,7 +38,7 @@ const DisplayOwned = ({username}) => {
     return(
         <div className="w-full min-h-screen bg-gray-100 rounded-xl space-y-10 flex flex-col py-8 items-center laptop:w-1/2 dark:bg-gray-600">
         {
-            Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} />)
+            Post.data && Post.data.map((it) => <PostCard key={it._id} struct={it} username={username} reference={"DisplayOwned"}/>)
         }
 
         <div className="flex items-center h-14 justify-center dark:bg-gray-600">
