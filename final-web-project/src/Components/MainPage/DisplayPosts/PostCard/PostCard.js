@@ -20,7 +20,6 @@ const PostCard = ({ username, struct }) => {
     const [likeCount, setLikes] = useState(likes.length)
     const [favoriteBut, setFavorite] = useState(false);
     const [post, setPost] = useState();
-    const favorites = useRef(0);
 
     useEffect(() => {
         async function getFavList() {

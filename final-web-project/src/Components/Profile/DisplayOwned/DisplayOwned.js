@@ -64,4 +64,5 @@ const DisplayOwned = ({username}) => {
     </div>
     );
 }
+
 export default DisplayOwned;

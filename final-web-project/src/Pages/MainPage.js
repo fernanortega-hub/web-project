@@ -21,6 +21,7 @@ const MainPage = () => {
             try {
                 const response = await Auth(token);
                 setUser(response.username);
+                localStorage.setItem('username', response.username);
             } catch (error) {
                 toast('Algo salio mal, inicia sesion nuevamente', { type: 'error' });
                 navigate('/');
