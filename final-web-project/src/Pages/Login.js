@@ -1,7 +1,7 @@
 import { FaUserAlt } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { MdAlternateEmail } from "react-icons/md";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,10 @@ const Login = () => {
         if (passwordValue.type === "password") passwordValue.type = "text"
         else passwordValue.type = "password"
     };
+
+    useEffect(() => {
+        document.title = "Login"
+    }, []);
 
     async function onSubmit(e) {
         e.preventDefault();

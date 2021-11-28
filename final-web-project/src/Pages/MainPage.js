@@ -27,6 +27,7 @@ const MainPage = () => {
             }
         }
         verifyUser();
+        document.title = "Principal";
     }, []);
 
     if(username===undefined) return <LoadingPage />
@@ -36,9 +37,8 @@ const MainPage = () => {
     return (    
         <div className="flex flex-col justify-items-center items-center bg-gray-200 gap-3 overflow-x-hidden dark:bg-gray-900">
             <ToastContainer />
-            <NavBar />
+            <NavBar username={username} />
             {role === "admin" && <PostForm />}
-            
             <DisplayPosts username={username} />
             <Footer />
         </div>
