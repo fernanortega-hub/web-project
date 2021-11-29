@@ -4,7 +4,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import PostCard from '../../MainPage/DisplayPosts/PostCard/PostCard';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import UseDarkMode from '../../../Services/UseDarkMode';
 
 const DisplayOwned = ({username}) => {
     

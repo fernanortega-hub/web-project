@@ -1,4 +1,3 @@
-import react from "react";
 import { FaSpinner } from "react-icons/fa";
 
 const Redirect = () => (

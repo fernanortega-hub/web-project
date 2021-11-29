@@ -1,5 +1,5 @@
-import { FaSearch, FaSignOutAlt, FaRegStar } from "react-icons/fa";
-import { react, useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { logout } from "../../../Services/Services";
@@ -52,7 +52,6 @@ const NavBar = ({ username }) => {
         <ul className="font-medium w-full max-h-30 h-14 p-4 bg-gray-100 flex items-center 
             rounded shadow overflow-hidden justify-around dark:bg-gray-700 dark:text-white">
             <li className="flex rounded-lg">
-               
                 <div className="flex flex-row items-center ml-4 text-xl">
                     <FiSun className={checked ? 'hidden' : 'text-yellow-500'} />
                     <Switch

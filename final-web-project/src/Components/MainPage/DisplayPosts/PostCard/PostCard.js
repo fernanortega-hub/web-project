@@ -1,5 +1,5 @@
 
-import react, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FaUserCircle, FaStar, FaComment, FaHeart, FaEdit } from "react-icons/fa";
 import axios from "axios";
 import Comments from "../Comment/Comment";
@@ -17,7 +17,6 @@ const PostCard = ({ username, struct, reference, reloadReference }) => {
     const [commentState, setComments] = useState(comments)
     //likes 
     const [liked, setLiked] = useState(likes.some((it) => it.username === username));
-    const [likesNumber, setLikesNumber] = useState([]);
     const [likeCount, setLikes] = useState(likes.length)
     const [favoriteBut, setFavorite] = useState(false);
     //edit
@@ -39,11 +38,12 @@ const PostCard = ({ username, struct, reference, reloadReference }) => {
                 if (favId === _id) {
                     checker = true;
                 };
+                return checker;
             })
             setFavorite(checker);
         };
         getFavList();
-    }, []);
+    });
 
     async function likesPost() {
         try {
