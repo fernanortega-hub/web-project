@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { RiEmotionSadLine } from "react-icons/ri";
 
-
+//Pagina de NotFound
 const NotFound = () => {
 
     const navigate = useNavigate();

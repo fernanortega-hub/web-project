@@ -47,13 +47,12 @@ const NavBar = ({ username }) => {
         })
     }
 
-
+    //retorna la barra superior de navegacion
     return (
         <ul className="font-medium w-full max-h-30 h-14 p-4 bg-gray-100 flex items-center 
             rounded shadow overflow-hidden justify-around dark:bg-gray-700 dark:text-white">
             <li className="flex rounded-lg">
-                <button className="p-2 rounded-lg hover:bg-gray-400 lg:text-2xl dark:hover:bg-gray-600" title="Favoritos"
-                    onClick={(e) => { navigate('/favorites') }}> <FaRegStar /> </button>
+               
                 <div className="flex flex-row items-center ml-4 text-xl">
                     <FiSun className={checked ? 'hidden' : 'text-yellow-500'} />
                     <Switch

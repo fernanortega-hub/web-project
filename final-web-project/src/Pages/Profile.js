@@ -18,7 +18,7 @@ const Profile = () => {
             }
         }
         verifyUser();
-        document.title = "Principal";
+        document.title = "Perfil";
     }, []);
 
 

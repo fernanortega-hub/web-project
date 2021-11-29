@@ -2,9 +2,7 @@ import React from 'react';
 import Login from './Pages/Login';
 import MainPage from './Pages/MainPage';
 import NotFound from './Pages/NotFound';
-import Favorites from './Pages/Favorites';
 import Profile from './Pages/Profile';
-
 
 import {
   BrowserRouter as Router,
@@ -13,9 +11,13 @@ import {
 } from 'react-router-dom';
 
 const App = () => {
+
+
+
   return (
     <Router>
       <Routes>
+      {/* Página de Login */}
         <Route exact path="/"
           element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
@@ -23,6 +25,7 @@ const App = () => {
             </div>
           }
         />
+        {/* Página principal */}
         <Route exact path="/mainpage"
           element={
             <div>
@@ -30,15 +33,7 @@ const App = () => {
             </div>
           }
         />
-
-        <Route exact path="/favorites"
-          element={
-            <div>
-              <Favorites />
-            </div>
-          }
-        />
-
+          {/* Página del perfil */}
         <Route exact path="/profile"
           element={
             <div>
@@ -46,7 +41,7 @@ const App = () => {
             </div>
           }
         />
-
+        {/* Si no se encuentra la página se redirige a la pagina NotFound */}
         <Route path="*" element={
           <NotFound />
         }/>

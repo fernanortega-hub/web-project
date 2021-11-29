@@ -42,6 +42,10 @@ const PostForm = () => {
             
         }
     };
+
+    const refresh = () =>{
+        window.location.reload();
+    }
     
 
 
@@ -64,7 +68,7 @@ const PostForm = () => {
 
                     <input placeholder="Imagen (URL)" name="image" id="image" className=" rounded px-2 py-2 dark:placeholder-gray-300 dark:bg-gray-500" />
 
-                    <button className="bg-indigo-600 rounded-xl text-white font-medium py-2 px-6 hover:bg-indigo-800"> Subir </button>
+                    <button className="bg-indigo-600 rounded-xl text-white font-medium py-2 px-6 hover:bg-indigo-800" onClick={refresh}> Subir </button>
                 </form>
             </main>
         </div>
