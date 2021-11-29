@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
       {/* Página de Login */}
-        <Route exact path="/"
+        <Route exact path="/login"
           element={
             <div className="flex justify-center items-center bg-gray-300 h-screen">
               <Login />

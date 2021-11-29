@@ -72,10 +72,10 @@ const NavBar = ({ username }) => {
                     role === "admin" &&
                     <button className="p-2 rounded-lg hover:bg-gray-400 lg:text-2xl dark:hover:bg-gray-600" title={`Perfil de ${username}`}
                     onClick={(e) => {
-                        if(window.location.pathname === '/MainPage'){
+                        if(window.location.pathname === '/mainpage'){
                             navigate('/profile');
                         } else if(window.location.pathname === '/profile'){
-                            navigate('/MainPage');
+                            navigate('/mainpage');
                         }
                     }}>
                         <HiUser />

@@ -39,9 +39,9 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('role', response.data.role);
 
-                if(response.data.role === "admin") navigate('/MainPage');
+                if(response.data.role === "admin") navigate('/mainpage');
                 
-                else if (response.data.role === "user") navigate('/MainPage');   
+                else if (response.data.role === "user") navigate('/mainpage');   
             }
         } catch (error) {
             const { response } = error
