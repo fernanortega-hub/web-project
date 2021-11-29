@@ -7,7 +7,7 @@ const NotFound = () => {
     const navigate = useNavigate();
 
     const onClickNavigate = (e) => {
-        navigate('/');
+        navigate('/login');
     }
 
     return (

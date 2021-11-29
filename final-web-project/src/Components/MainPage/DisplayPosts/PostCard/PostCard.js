@@ -96,8 +96,8 @@ const PostCard = ({ username, struct, reference, reloadReference }) => {
             }
 
         } catch (error) {
-            console.log(error);
-        }
+            const {response} = error;
+            if(response.status === 404) toast('Este post esta oculto, no puedes agregarlo a tus favoritos', {type: 'error'});        }
     };
 
     const toogleHandler = async () => {

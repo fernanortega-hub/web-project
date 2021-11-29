@@ -40,7 +40,7 @@ const NavBar = ({ username }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 logout();
-                navigate('/');
+                navigate('/login');
             } else if (result.isDenied) {
                 return;
             }
